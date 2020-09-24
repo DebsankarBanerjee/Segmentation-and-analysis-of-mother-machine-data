@@ -8,6 +8,7 @@ Bacterial cell segmentation in mother machine data using MATLAB
    example: if the files in "im" folder are xy01_01.tif and xy01_02.tif then the dataname file should be
 
 xy01_01
+
 xy01_02
 
 3. run SAM.m in the MATLAB console
