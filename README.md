@@ -1,5 +1,5 @@
 # Segmentation and analysis of mother machine data (SAM)
-Bacterial cell segmentation in mother machine data using MATLAB\\
+Bacterial cell segmentation in mother machine data using MATLAB\
 Console version of SAM
 # To run in MATLAB console:
 	Make four folders named "code", "data", "plot" and "im"
