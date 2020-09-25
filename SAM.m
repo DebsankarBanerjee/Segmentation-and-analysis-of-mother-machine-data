@@ -8,17 +8,17 @@
 clc; 
 clear all;
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% global parameters etc %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% global parameters %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 dx = 50/310 ;		% pixel length in micro meter
 dt = 1 ;		% frame rate in min
+% how to get: dx and dt should be known from microscopy
 
 eps = 1E-6;		% small number : numerical tolerence
 
-IwantPlot = 1;		% if frame-by-frame plot is not needed then put IwantPlot=1 ortherwise 0
+IwantPlot = 1;		% if frame-by-frame plot is not needed then put IwantPlot=0 otherwise 1
 plot_start_time = 0 ;
 plot_end_time = 30;
-
 
 sigma = 1;		% stn div of the gauss filter
 gs = 3*sigma;		% size of gauss filter window = 3 x sigma
@@ -30,36 +30,33 @@ Asharp = 6;		% Amount of sharpness enhansement
 
 R_imopen = 20;		% radius for imopen in background (BG) preparation
 
+thr = 1500;		% threshold value to binarize image. Intensity > thr = 1 and Intensity < thr = 0
+% how to get: This threshold has to be determined properly. The aim here is to fish out the cells
+%             so a good approximation will be average intensities just outside the cell. 
 
-thr = 1500;		% threshold value to binarize image ~ 1500 
 coffthr = 0.45;		% threshold for cutoff position along-y
-
-%grad_thr = 90000;
-%avgthr = 1.0;			%1.0;
-%min_depth = 0.4;
 
 pk_dist = 8;		% min peak distance tolerance in FindPeaks
 pk_prom = 0.5;		% min peak prominence tolerance in FindPeaks ~ 0.45
-
 divf = 0.65;		% division length reduction parameter, L_new < divf*L_old, used in prevention of cell div loss
-
 fil_length = 30;	% cell size >= fil_length is considered for possible filamentation 
 fil_div = 10;		% when cell_L > 40 pix, asymmetric cell div : L0 - L > fil_div, then div counted.
 agf = 1.50;		% abnormal growth parameter, L_new > agf*L_old, used in prevention of cell div loss
 min_lb = 10;		% minimal length at birth, to supress over segmentation
 max_dbline = 15;	% max allowed change in new BLine(bottom line), while calculating from l_sum
-max_dl_tot = 8;		% max change in total length of cells : used to check cell intrusion into MF-channel
+max_dl_tot = 8;		% max change in total length of cells in one dt : used to check cell intrusion into MF-channel
+% how to get: These quantities depend on the cell type, magnification of microscopy etc. Here these are optimized for E.coli cells.
 
-bwn = 4; 		%connectivity for bw_conn_comp
+bwn = 4; 		%connectivity for bw_conn_comp (CC=connected components, i.e., connected "one" pixelsin binary image)
 mincellsize = 20;	%no of pixel, any smaller object is to be removed as noise/abbaration
 
 min_std = 5;		% min value of std of intensity profile, used to determine if an
 			% object in CC contains cells or not.
 
-max_cell_no = 150;	% no of rows of cell_id matrix, to be fixed at some opt size
+max_cell_no = 150;	% no of rows of cell_id matrix, to be fixed at some optimal size | but it automatically increases when needed
 
-pdelta = 3;		% pix no fluctuation in level set, due to determination of level set from relative
-			% quantities like intensity ratio, mean intensity at t, etc. << new cell size
+pdelta = 3;		% pixel no fluctuation in level set, due to determination of level set from relative
+			% quantities like intensity ratio, mean intensity at local time, etc. Should be much smaller than new cell size
 
 max_Xshift = 8;		% max distance of object center_X from the image center (imcenter) to be allowed
 			% used to remove random cell/object error from dynamic thresholding
@@ -67,13 +64,9 @@ max_Xshift = 8;		% max distance of object center_X from the image center (imcent
 Theta_cutoff = 30;	% objects/cells oriented with the channel are selected, any object with
 			% orientation less than Theta_cutoff is removed
 
-%end_centroid = 12;	% if cell centroid_y is within 'end centriod' range from open end then cell is extracted
-
-%bottom_line = 20;
-
 end_ch_high = 8000;	% high values representing clogging cells at channel end. Used to calculate bottom line. 
 
-min_area_ratio = 0.05	% min area/ convex_area ratio allowed for cells 
+min_area_ratio = 0.05	% min area/ convex_area ratio allowed for cells. This a measure of tilt in the cells. 
 
 
 
