@@ -1,0 +1,14 @@
+  FinalImage=zeros(nImage,mImage,NumberImages,'uint16');
+ 
+  TifLink = Tiff(FileTif, 'r');
+%-------------------------------------------------------
+%%%%%%%%%%%%% image reading loop %%%%%%%%%%%%%%
+
+for k=1:NumberImages
+  TifLink.setDirectory(k);
+  FinalImage(:,:,k)=TifLink.read();
+   
+end			
+%------------------------------------------------------ Image loop ends
+  TifLink.close();
+%-----------------------------------------------------------------------------

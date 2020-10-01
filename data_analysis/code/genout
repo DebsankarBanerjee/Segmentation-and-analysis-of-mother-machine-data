@@ -1,0 +1,245 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2019 The MathWorks, Inc.
+              R2019a Update 4 (9.6.0.1150989) 64-bit (glnxa64)
+                               June 26, 2019
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+>> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> 
+prsn =
+
+   -0.1081
+
+>> 95p confidence interval - [-0.170246,-0.046381] 
+>> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> 
+prsn =
+
+    0.0865
+
+>> 95p confidence interval - [0.011591,0.121214] 
+>> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> 
+prsn =
+
+   -0.0630
+
+>> 95p confidence interval - [-0.092111,0.006114] 
+>> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> 
+prsn =
+
+    0.6204
+
+95p confidence interval - [0.540315,0.716735] 
+
+prsn =
+
+    0.0027
+
+95p confidence interval - [-0.069273,0.069705] 
+
+prsn =
+
+    0.1226
+
+95p confidence interval - [-0.055407,0.250601] 
+
+prsn =
+
+   -0.0020
+
+95p confidence interval - [-0.082005,0.087635] 
+
+prsn =
+
+    0.1145
+
+95p confidence interval - [0.038184,0.180602] 
+
+prsn =
+
+   -0.0477
+
+95p confidence interval - [-0.122601,0.048682] 
+
+prsn =
+
+    0.0815
+
+95p confidence interval - [0.019441,0.149175] 
+
+prsn =
+
+   -0.0131
+
+95p confidence interval - [-0.076422,0.050043] 
+
+prsn =
+
+   -0.1143
+
+95p confidence interval - [-0.276001,0.100816] 
+>> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> 
+prsn =
+
+    0.4962
+
+95p confidence interval - [0.419182,0.572322] 
+
+prsn =
+
+    0.6336
+
+95p confidence interval - [0.555721,0.722112] 
+
+prsn =
+
+    0.0212
+
+95p confidence interval - [-0.012608,0.074997] 
+
+prsn =
+
+   -0.0525
+
+95p confidence interval - [-0.128989,0.018291] 
+
+prsn =
+
+   -0.0046
+
+95p confidence interval - [-0.087155,0.075568] 
+
+prsn =
+
+   -0.0226
+
+95p confidence interval - [-0.072042,0.016581] 
+
+prsn =
+
+   -0.1479
+
+95p confidence interval - [-0.211466,-0.082595] 
+
+prsn =
+
+    0.0392
+
+95p confidence interval - [-0.022875,0.096846] 
+
+prsn =
+
+    0.0313
+
+95p confidence interval - [-0.208289,0.071017] 
+>> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> 
+prsn =
+
+    0.3230
+
+95p confidence interval - [0.221609,0.418943] 
+
+prsn =
+
+   -0.1461
+
+95p confidence interval - [-0.263292,-0.029110] 
+
+prsn =
+
+    0.0127
+
+95p confidence interval - [-0.196197,0.183054] 
+
+prsn =
+
+   -0.0934
+
+95p confidence interval - [-0.199935,-0.000349] 
+
+prsn =
+
+    0.1296
+
+95p confidence interval - [0.018128,0.246205] 
+
+prsn =
+
+   -0.0245
+
+95p confidence interval - [-0.157397,0.112619] 
+
+prsn =
+
+   -0.1028
+
+95p confidence interval - [-0.224845,0.019578] 
+
+prsn =
+
+    0.1138
+
+95p confidence interval - [-0.022644,0.246865] 
+
+prsn =
+
+    0.0325
+
+95p confidence interval - [-0.175501,0.271955] 
+>> >> >> >> >> >> >> >> >> >> 
+prsn =
+
+    0.2831
+
+95p confidence interval - [0.142282,0.408934] 
+
+prsn =
+
+    0.3429
+
+95p confidence interval - [0.231470,0.446255] 
+
+prsn =
+
+   1.9493e-04
+
+95p confidence interval - [-0.083417,0.075063] 
+
+prsn =
+
+   -0.0824
+
+95p confidence interval - [-0.198302,0.034667] 
+
+prsn =
+
+   -0.0943
+
+95p confidence interval - [-0.187683,-0.007343] 
+
+prsn =
+
+   -0.0111
+
+95p confidence interval - [-0.118003,0.094922] 
+
+prsn =
+
+   -0.0683
+
+95p confidence interval - [-0.176782,0.042956] 
+
+prsn =
+
+    0.0189
+
+95p confidence interval - [-0.094411,0.150362] 
+
+prsn =
+
+    0.0448
+
+95p confidence interval - [-0.060081,0.151269] 
+>> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> 

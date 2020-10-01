@@ -1,0 +1,1 @@
+ls ../im/set1 -1 | sed -e 's/\.png$//' > ../../code/filenames

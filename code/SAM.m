@@ -17,7 +17,7 @@ eps = 1E-6;		% small number : numerical tolerence
 
 IwantPlot = 1;		% if frame-by-frame plot is not needed then put IwantPlot=1 ortherwise 0
 plot_start_time = 0 ;
-plot_end_time = 10;
+plot_end_time = 100;
 
 
 sigma = 1;		% stn div of the gauss filter

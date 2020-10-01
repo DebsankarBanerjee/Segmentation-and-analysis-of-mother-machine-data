@@ -1,0 +1,1 @@
+function [imth,ch_end] = erase_channel(imth,ch_end,end_centroid,m2,n1,k)

@@ -1,0 +1,70 @@
+ #!/usr/bin/bash 
+clear
+# clear current plot folder------------------------------------------
+clear_flag=0
+if [ "$clear_flag" -eq 1 ]; then
+rm ../plot/*.png
+rm ../plot/*.eps
+rm -r ../plot/
+rm -r ../data/
+rm ../output/out*
+fi
+
+# create folders fro data, plot etc..
+mkdir -p ../data 
+mkdir -p ../plot
+mkdir -p ../output
+mkdir -p ../im
+mkdir -p ../results
+
+echo "png images deleted"
+echo "run matlab code"
+#---------------------------------------------------------------------
+# run analysis over tif files in a loop
+
+# dataname from filenames
+ndata=$(<ndata)
+#printf "%s" $ndata>'ndata'
+echo 'no of tif data ->' $ndata
+
+
+#--------------------------- DATA LOOP -------------------------------
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+j1=2
+
+for j in $(seq 1 1 $ndata) 	
+do
+dataname=`sed "${j}q;d" filenames`
+printf "%s" $dataname>'dataname'
+
+echo 'running for data ->' ${dataname}
+
+time matlab -nodesktop -nodisplay < bac_life_2.m > ../output/out_${dataname}
+
+
+# organize plots------------------------------------------------------
+#cd ../plot
+#mkdir -p "plots_${dataname}"
+#mv *_${dataname}*.* plots_${dataname}/
+#cd ../code
+
+
+done
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+
+#--------- save code in compressed form ------------
+
+tar -czvf compCode.tar.gz code *.sh *.m filenames
+mv compCode.tar.gz ../plot/compCode.tar.gz
+
+
+
+
+
+
+
+

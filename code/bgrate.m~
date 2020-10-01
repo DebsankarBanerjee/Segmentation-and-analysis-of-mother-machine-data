@@ -1,0 +1,251 @@
+clc; 
+clear all;
+%%%%%%%%%%%%%%% global parameters etc %%%%%%%%%%%%%%%
+
+dx = 0.08 ;		% pixel length in micro meter
+dt = 5 ;		% frame rate in second
+
+eps = 1E-6;		% small number : numerical tolerence
+
+ %------------- IMPORTANT PARAMETERS ----------------
+
+med_size = 3;
+gs = 5;			% size of gauss filter window
+sigma = 3;		% stn div of the gauss filter
+
+thr = 500;		% threshold value to binarize image
+
+%%%%%%%%%%%%%%% open files %%%%%%%%%%%%%%%
+fileID = fopen('exp.txt','w');
+
+
+
+%=============================================================================
+
+
+
+%%%%%%%%%%%%%% get file names %%%%%%%%%%%%%%%%%
+fid = fopen('filenames');
+txt = textscan(fid,'%s','delimiter','\n');
+c1 = txt{1} ;
+
+
+ndata=numel(c1)
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%% LOOP ON DATA (TIF FILES) %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  for i=1:ndata
+
+%%%%%%%%%%%%%%% open data specific files %%%%%%%%%%%%%%%
+
+fid20=fopen(['../data/int_time_',num2str(i,'%03d'),'.txt'],'w');
+
+%-----------------------------------------------------------------------------
+%%%%%%%%%%%%%% extracting images %%%%%%%%%%%%%
+  FileTif=['../im/', char(c1(i)),'.tif'];
+  InfoImage=imfinfo(FileTif);
+  mImage=InfoImage(1).Width;
+  nImage=InfoImage(1).Height;
+  NumberImages=length(InfoImage);
+  FinalImage=zeros(nImage,mImage,NumberImages,'uint16');
+ 
+  TifLink = Tiff(FileTif, 'r');
+%-------------------------------------------------------
+%%%%%%%%%%%%% image reading loop %%%%%%%%%%%%%%
+
+for k=1:NumberImages
+  TifLink.setDirectory(k);
+  FinalImage(:,:,k)=TifLink.read();
+   
+end			
+%------------------------------------------------------ Image loop ends
+  TifLink.close();
+%-----------------------------------------------------------------------------
+
+  n1 = nImage ;		% row = y-axis
+  n2 = mImage ;		% column = x-axis
+
+  IM = zeros(n1,n2);
+  imth=zeros(n1,n2);
+
+
+
+fprintf('tif images extracted : OK \n')
+fprintf('**************************************************\n')
+fprintf('ecad and myosin data %s\n',char(c1(i)))
+fprintf('**************************************************\n')
+
+
+%>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+%>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+%>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+%>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% ANALYSIS ON FIRST FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  %--------------------------------------------------- get the first frame
+  im=FinalImage(:,:,1);
+  
+  
+  %------------------ Gaussian filter ----------------   >>> IMPORTANT <<<
+  im = imfilter(double(im),fspecial('gaussian',[gs gs], sigma));
+  
+  %------ grad_square for thresholding
+  [imx, imy] = gradient(double(im));
+  imgrsq = imx.*imx + imy.*imy ;
+  
+  %%%%%%%%%%%%%%%%%%% Thresholding on im-grad-square %%%%%%%%%%%
+  %--------------------------------------------------    >>> IMPORTANT <<<
+
+  imth(imgrsq < thr) = 0;
+
+  
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%% ANALYSIS ON STACK : TIME LOOP %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+cc=0;
+pcount=0;
+
+for k=1:5	%NumberImages            % --------------------------- time loop
+
+  %--------------------------------------------------- IM = current frame
+   IM = FinalImage(:,:,k) ;
+   time=(k-1)*dt;
+
+%%%%%%%%%%%%%%% open data specific files %%%%%%%%%%%%%%%
+
+%fid10=fopen(['../data/rav_',num2str(i,'%03d'),'_',num2str(k,'%03d'),'.txt'],'w');
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% ANALYSIS ON SINGLE FRAME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ 
+  
+   
+  %--------------------------------------------------- flip y axis
+  im=IM;           %flipud(IM);
+  
+  
+  %------------------ Median filter ------------------
+  im = medfilt2(im2, [med_size med_size]);
+
+  %------------------ Gaussian filter ----------------   >>> IMPORTANT <<<
+  im = imfilter(double(im),fspecial('gaussian',[gs gs], sigma));
+
+  
+  %------ grad_square for thresholding
+  [imx, imy] = gradient(double(im));
+  imgrsq = imx.*imx + imy.*imy ;
+  
+  %%%%%%%%%%%%%%%%%%% Thresholding on im-grad-square %%%%%%%%%%%
+  %--------------------------------------------------    >>> IMPORTANT <<<
+  imth=im
+  imth(im < thr) = 0;
+  im=imth
+
+  %--------------------------------------------------
+   
+  
+  
+
+  %tot_int = sum(im(:));
+  row_av = sum(im,2);
+  row_av = row_av/mean(row_av);
+  [pks,locs] = findpeaks(row_av,'MinPeakProminence',0.05);
+  %'MinPeakDistance',6
+  %fprintf(fid20, '%f %f \n', k,tot_int);
+
+%%%%%%%%%%%%%%% plot %%%%%%%%%%%%%%%
+  
+  h = figure('vis', 'off');
+  
+ 
+  plot(locs,pks,'ored','MarkerFaceColor','red','MarkerSize',12)
+  hold on
+  plot(row_av,'-black')
+  
+  xlabel('t')
+  ylabel('int')
+  print(h,'-dpng','-r200',['../plot/pks_',char(c1(i)),'_',num2str(k,'%03d'),'.png'])  
+  
+  
+  
+      
+   
+%%%%%%%%%%%%%%% plot %%%%%%%%%%%%%%%
+  
+  h = figure('vis', 'off');
+  set(gcf,'PaperUnits','inches','PaperPosition',[0 0 2 8])
+  
+  imagesc(im)			%imagesc(flipud(im))
+  colormap copper
+  colorbar
+  %hold on
+  %plot(pc, pr,'ogreen','MarkerFaceColor','green','MarkerSize',8)
+  
+  xlabel('x')
+  ylabel('y')
+  print(h,'-dpng','-r200',['../plot/im_',char(c1(i)),'_',num2str(k,'%03d'),'.png'])
+
+
+
+
+  h = figure('vis', 'off');
+  
+  imagesc(imth)			%imagesc(flipud(im))
+  colormap copper
+  
+  xlabel('x')
+  ylabel('y')
+  print(h,'-dpng','-r200',['../plot/imth_',char(c1(i)),'_',num2str(k,'%03d'),'.png'])
+
+%----------------------------------------------------------------------------
+  [nl,ll] = size(pks);
+  if (k==1) 
+      ca=nl
+  end
+  if (k==5)  
+      cz=ul
+  end
+
+    [nl,nnl]=size(pks);
+%end
+pcount2=locs(nl)
+  if (pcount2<pcount)
+      cc = cc+1;
+  end
+  
+  pcount=pcount2;
+  
+end     %---------------------------- time loop on frames END
+
+
+fprintf(fileID,'%d %f\n',i,cc);
+end	%---------------------------- loop on data ENDs
+
+ 
+  
+  
+  
+
+  
+  
+  
+  
+  
+  

@@ -1,0 +1,20 @@
+function [end_line] = set_end_line(end_line,end_centroid,l_end,pdelta,n1,k)
+
+  if(k == 1) 			%---------- IF(1)
+  end_line = end_line;
+  fprintf('set boundary_cell_line: n1, l_end, end_line  = %d %d %d\n',n1,l_end,end_line)
+  return
+  end
+
+
+  if(l_end < n1-end_centroid)
+  
+  end_line = (n1-l_end) - pdelta ;
+ 
+  else
+
+  end_line = end_centroid ;
+
+  end
+  
+  fprintf('set boundary_cell_line: n1, l_end, end_line  = %d %d %d\n',n1,l_end,end_line)

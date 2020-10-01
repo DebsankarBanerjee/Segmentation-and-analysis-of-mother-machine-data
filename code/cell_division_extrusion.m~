@@ -1,0 +1,23 @@
+function [div_stat] = cell_division_extrusion(L,L0) 
+
+%%%%%%%%%%%%%%% quantify cell division
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   addi = 0;
+
+   cellnodiff = round(numel(L) - numel(L0));
+
+   if (cellnodiff=0)
+
+   for i=1:numel(L0)
+    if(i+addi>numel(L))
+      break
+    end
+
+    if(L(i+addi) < L0(i))
+    addi = addi + 1;
+    cell_div_id(addi) = i;
+    cell_div_L(addi) = L0(i);
+    end
+   end
+   
+   div_stat = [cell_div_id ; cell_div_L];

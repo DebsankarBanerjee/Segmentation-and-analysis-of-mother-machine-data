@@ -1,0 +1,119 @@
+function [t1,t2] = false_extrema(x1,x2,ch,thr) 
+
+%%%%%%%%%%%%%%% Find true nature of extrema and get rid of false   
+%%%%%%%%%%%%%%% maxima (y,x1) and minima (z,x2)
+%%%%%%%%%%%%%%% true max= t1, y1   -   true min= t2, y2 
+
+   nn = numel(ch);
+
+   gf = 1.50		% growth factor parameter, used in prevention of cell div loss
+
+   %%%------------ false maxima
+   xc=1;
+   n=numel(x1);
+   R=5;
+   for i=1:n
+   if (x1(i)-R <= 1)
+      a1=ch(1);
+   else
+      a1=ch(x1(i)-R);
+   end
+
+   if (x1(i)+R >= nn)
+      a2=ch(nn); 
+   else
+      a2=ch(x1(i)+R);
+   end
+
+    pk=ch(x1(i));
+
+    if(a1<pk && a2<pk)
+    t1(xc)=x1(i);
+    xc= xc + 1;
+    end
+    %fprintf('max verified : OK a1,a2,pk = %f %f %f \n',a1,a2,pk)
+    %fprintf('**************************************************\n')
+   end
+
+
+   %%%------------ false minima
+   xc=1;
+   n=numel(x2);
+   R=5;
+   R2=8;
+   for i=1:n
+   if (x2(i)-R2 <= 1)
+      a1=ch(1);
+      b1=ch(1);
+      else
+      a1=ch(x2(i)-R);
+      b1=ch(x2(i)-R2);
+   end
+
+   if (x2(i)+R2 >= nn)
+      a2=ch(nn); 
+      b2=ch(nn);
+      else
+      a2=ch(x2(i)+R);
+      b2=ch(x2(i)+R2);
+   end
+
+    dp=ch(x2(i));
+
+    if(a1>dp && a2>dp && (b1+b2)/2 - dp > thr)
+    t2(xc)=x2(i);
+    xc= xc + 1;
+    end
+    %fprintf('min verified : OK a1,a2,dp = %f %f %f \n',a1,a2,dp)
+    %fprintf('**************************************************\n')
+   end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+

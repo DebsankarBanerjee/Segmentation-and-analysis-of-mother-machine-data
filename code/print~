@@ -1,0 +1,87 @@
+%-------%%%%%%%%%%%%%%% plot the thresholded image  %%%%%%%%%%%%%%%-------------------------------
+  
+  h = figure('vis', 'off');
+  set(gcf,'PaperUnits','inches','PaperPosition',[0 0 4 16])
+
+  imagesc(imth)			%imagesc(flipud(im))
+  colormap copper
+  colorbar
+  %hold on
+  %plot(pc, pr,'ogreen','MarkerFaceColor','green','MarkerSize',8)
+  
+  xlabel('x')
+  ylabel('y')
+  print(h,'-dpng','-r200',['../plot/imth_',char(c(i)),'_',num2str(k,'%03d'),'.png'])
+
+
+
+  %%%%%%%%%%%%%%% plot the binary image %%%%%%%%%%%%%%%
+
+  end_line = n1-end_centroid;
+  
+  h = figure('vis', 'off');
+  set(gcf,'PaperUnits','inches','PaperPosition',[0 0 8 16])
+
+  subplot(1,2,1)
+  imagesc(imbw0)	
+  colormap copper
+  hold on;
+  line([1,n2], [end_line, end_line], 'Color', 'white');
+  xlabel('x')
+  ylabel('y')
+
+  xt = get(gca, 'XTick');
+  set(gca, 'FontSize', 16)
+  yt = get(gca, 'YTick');
+  set(gca, 'FontSize', 16)
+  
+  subplot(1,2,2)
+  imagesc(imbw)			%imagesc(flipud(im))
+  colormap copper
+  hold on
+  plot(centroids2(:,1), centroids2(:,2),'or','MarkerFaceColor','red','MarkerSize',12)
+  
+  xlabel('x')
+  ylabel('y')
+
+  xt = get(gca, 'XTick');
+  set(gca, 'FontSize', 16)
+  yt = get(gca, 'YTick');
+  set(gca, 'FontSize', 16)
+
+  print(h,'-dpng','-r200',['../plot/imbw_',char(c(i)),'_',num2str(k,'%03d'),'.png'])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  h = figure('vis', 'off');
+  set(gcf,'PaperUnits','inches','PaperPosition',[0 0 20 5])
+ 
+  plot(ch_y,'-black')
+  hold on
+  plot(negch_y,'--k')
+  hold on
+  plot(pky,pks,'ored','MarkerFaceColor','red','MarkerSize',12)
+  hold on
+  plot(dpy,dps,'ored','MarkerFaceColor','blue','MarkerSize',12)
+  hold on
+  plot(maxy,highy,'s','MarkerFaceColor','black','MarkerSize',10)
+  hold on
+  plot(miny,lowy,'s','MarkerFaceColor','green','MarkerSize',10)
+  
+  xlabel('t')
+  ylabel('int')
+  print(h,'-dpng','-r200',['../plot/pks_',char(c(i)),'_',num2str(k,'%03d'),'.png'])
+
+
