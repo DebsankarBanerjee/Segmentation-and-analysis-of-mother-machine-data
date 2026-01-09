@@ -1,24 +1,3 @@
-# Segmentation and analysis of mother machine data (SAM)
-Bacterial cell segmentation in mother machine data using MATLAB
-# To run in MATLAB console:
-	Open MATLAB in /code folder path
-1. all .tif files should be in /im folder
-
-2. write the filenames in the file code/dataname
-   example: if the files in "im" folder are xy01_01.tif and xy01_02.tif then the dataname file should be
-
-xy01_01
-
-xy01_02
-
-3. run SAM.m in the MATLAB console
-
-4. the folders "data" and "plot" should exist for writing data and plotting frames
-   run  > mkdir plot and > mkdir data to create them from console. 
-
-
-
-
 # SAM: High-Throughput Automated Image Segmentation & Tracking
 
 **Lead Developer: Deb Sankar Banerjee, PhD** *A modular MATLAB pipeline for high-precision metrology and feature extraction in time-lapse microscopy.*
@@ -80,4 +59,4 @@ run('SAM_Main.m') % [Ensure this matches your actual entry point script]
 
 If you use this tool in your research, please cite:
 
-> *Banerjee, D. S., Stephenson, G., & Das, S. M. (2020). Segmentation and analysis of mother machine data: SAM. bioRxiv.* [Link to Paper]
+> *Banerjee, D. S., Stephenson, G., & Das, S. M. (2020). Segmentation and analysis of mother machine data: SAM. bioRxiv.* [[Link to Paper](https://doi.org/10.1101/2020.10.01.322685)]
