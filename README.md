@@ -54,7 +54,46 @@ cd Segmentation-and-analysis-of-mother-machine-data
 run('SAM_Main.m') % [Ensure this matches your actual entry point script]
 
 ```
-### Workflow and segmentation steps
+
+---
+
+## ⚙️ Theory of Operation: The SAM Algorithm
+
+The SAM pipeline transforms raw optical sensor data into precise physical metrology through a three-stage computational framework.
+
+### 1. Pre-Processing & Data Decomposition
+
+High-resolution images of the microfluidic device are decomposed into localized image stacks. Each stack represents a single sensing channel, isolating the region of interest (ROI) to reduce computational overhead and focus the segmentation logic on individual data streams.
+
+---
+
+### 2. The Core Processing Engine (SAM)
+
+The engine utilizes a hybrid **1D Signal Projection + 2D Morphological Analysis** approach to detect and track features with high temporal resolution.
+
+#### **A. Signal Enhancement & Dimensionality Reduction**
+
+* **Intensity Projection:** Each frame undergoes a mid-line spatial projection. By averaging pixel intensities across the channel width, the 2D image is reduced to a 1D longitudinal intensity signal.
+* **Feature Localization:** Local minima detection is performed on the 1D signal to identify potential boundaries (cell poles/division planes).
+
+#### **B. Multi-Pass Segmentation**
+
+* **Initial Masking:** A binary mask is generated using a user-defined global threshold (). This mask is then partitioned into **Connected Components (CC)** based on the previously detected intensity minima.
+* **Adaptive Error Correction:** The system runs a series of consistency cross-checks to identify optical aberrations (e.g., overlapping features, signal drift, or "cell intrusion"). If inconsistencies are detected, specialized adaptive operations are triggered to refine the boundaries.
+* **Final Metrology:** A secondary, refined segmentation (CC2) is performed. The system applies **elliptical fitting** to each feature to extract high-precision measurements of the major axis, providing a robust estimate of size and growth kinetics.
+
+#### **C. Temporal Tracking & Lineage Mapping**
+
+* The algorithm records extrusion and division events in a **lineage-tractable data structure**, maintaining a continuous record of the system's evolution over time.
+
+---
+
+### 3. Post-Processing & Statistical Visualization
+
+The final stage provides an automated suite for analyzing structured data. This includes generating division statistics and visualizing the kinetic profiles of thousands of features simultaneously, enabling rapid identification of system-level trends.
+
+---
+
 
 ![Descriptive Title](workflow.png)
 
