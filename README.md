@@ -83,7 +83,7 @@ The engine utilizes a hybrid **1D Signal Projection + 2D Morphological Analysis*
 * **Final Metrology:** A secondary, refined segmentation (CC2) is performed. The system applies **elliptical fitting** to each feature to extract high-precision measurements of the major axis, providing a robust estimate of size and growth kinetics.
 
 ![Workflow](workflow.png)
-* **SAM Computational Metrology Pipeline and Feature Extraction Workflow**. The multi-pass architecture (Left) illustrates the transformation of raw optical data into high-fidelity segmented features. Key stages include: [A] Raw sensor input characterized by low Signal-to-Noise Ratio (SNR); [C] Initial segmentation mask generated via adaptive thresholding and 1D longitudinal intensity projection; and [D] Finalized high-precision segmentation after automated aberration correction and elliptical fitting for robust morphological characterization.*
+*SAM Computational Metrology Pipeline and Feature Extraction Workflow**. The multi-pass architecture (Left) illustrates the transformation of raw optical data into high-fidelity segmented features. Key stages include: [A] Raw sensor input characterized by low Signal-to-Noise Ratio (SNR); [C] Initial segmentation mask generated via adaptive thresholding and 1D longitudinal intensity projection; and [D] Finalized high-precision segmentation after automated aberration correction and elliptical fitting for robust morphological characterization.*
 
 #### **C. Temporal Tracking & Lineage Mapping**
 
