@@ -54,6 +54,9 @@ cd Segmentation-and-analysis-of-mother-machine-data
 run('SAM_Main.m') % [Ensure this matches your actual entry point script]
 
 ```
+### Workflow and segmentation steps
+
+![Descriptive Title](workflow_plot.png)
 
 ## 📖 Citation
 
