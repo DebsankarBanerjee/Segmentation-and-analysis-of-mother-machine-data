@@ -63,7 +63,7 @@ The SAM pipeline transforms raw optical sensor data into precise physical metrol
 
 ### 1. Pre-Processing & Data Decomposition
 
-High-resolution images of the microfluidic device are decomposed into localized image stacks. Each stack represents a single sensing channel, isolating the region of interest (ROI) to reduce computational overhead and focus the segmentation logic on individual data streams.
+High-resolution images of the microfluidic device are decomposed into localized image stacks. Each stack represents a single channel, isolating the region of interest (ROI) to reduce computational overhead and focus the segmentation logic on individual data streams.
 
 ---
 
